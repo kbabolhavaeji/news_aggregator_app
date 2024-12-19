@@ -86,12 +86,8 @@ class ArticleService implements AppConstants
 
     private function adaptData($source, $response): static
     {
-        $result = Switch::on($source)
-        ->case(self::NEWSAPI, "w")
-        ->case(self::NEWSCRED, "e")
-        ->case(self::OPENNEWS, "r")
-        ->default(fn() => 'Value is something else'); // use exception later
-        return $result;
+
+        return '';
     }
 
     private function save()
