@@ -8,11 +8,6 @@ use Illuminate\Console\Command;
 
 class FetchArticles extends Command implements Contracts\AppConstants
 {
-    public function __construct(private ArticleService $articleService)
-    {
-        parent::__construct();
-    }
-
     /**
      * The name and signature of the console command.
      *
@@ -31,10 +26,10 @@ class FetchArticles extends Command implements Contracts\AppConstants
      * Execute the console command.
      * @throws \Exception
      */
-    public function handle(): void
+    public function handle(ArticleService $articleService): void
     {
         foreach (self::NEWS_SOURCES as $source) {
-            $this->articleService->fetch($source);
+            $articleService->fetch($source);
         }
     }
 }
