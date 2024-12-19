@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Contracts\AppConstants;
+use App\Contracts\NewsApiAdapterInterface;
+use App\Dto\NewsDto;
 use App\Models\Article;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -12,6 +14,7 @@ class ArticleService implements AppConstants
 
     /**
      * Fetch news from a source
+     * this method gets an endpoint and get the latest news articles
      *
      * @param $source
      * @return void
@@ -51,6 +54,11 @@ class ArticleService implements AppConstants
         return $query->paginate(10);
     }
 
+    public function save(NewsDto $newsDto)
+    {
+        //
+    }
+
     /**
      * @param $source
      * @param array $queryParams
@@ -72,6 +80,7 @@ class ArticleService implements AppConstants
 
             // Check if the response is successful
             if ($response->successful()) {
+                // @todo : how to call the resource adapter class by it's name
                 $this->adaptData($source, $response->json());
             }
 
@@ -84,15 +93,17 @@ class ArticleService implements AppConstants
         }
     }
 
-    private function adaptData($source, $response): static
+    /**
+     * Sync news API resources' response with Database.
+     *
+     * @param NewsApiAdapterInterface $adapter
+     * @param $response mixed response of the news API endpoint
+     * @return $this
+     */
+    private function adaptData(NewsApiAdapterInterface $adapter, mixed $response): static
     {
-
-        return '';
+        $newsDto = $adapter->sync($response);
+        $this->save($newsDto);
     }
 
-    private function save()
-    {
-
-        return '$this';
-    }
 }
