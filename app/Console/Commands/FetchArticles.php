@@ -24,6 +24,8 @@ class FetchArticles extends Command implements Contracts\AppConstants
 
     /**
      * Execute the console command.
+     * Calling Article Service and call all the sources one-by-one by using fetch method
+     *
      * @throws \Exception
      */
     public function handle(ArticleService $articleService): void

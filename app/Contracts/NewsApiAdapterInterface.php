@@ -11,5 +11,5 @@ use App\Dto\NewsDto;
  */
 interface NewsApiAdapterInterface
 {
-    public function fetchNews(NewsDto $newsDto) : NewsDto;
+    public function sync($data) : NewsDto;
 }
