@@ -22,7 +22,8 @@ class ArticleService implements AppConstants
      */
     public function fetch($source): void
     {
-        $this->makeRequest($source);
+        $articles = $this->makeRequest($source);
+        $this->save($articles);
     }
 
     public function get(array $request)
@@ -62,10 +63,10 @@ class ArticleService implements AppConstants
     /**
      * @param $source
      * @param array $queryParams
-     * @return void
+     * @return NewsDto
      * @throws \Exception
      */
-    private function makeRequest($source, array $queryParams = []): void
+    private function makeRequest($source, array $queryParams = []): NewsDto
     {
 
         try {
@@ -81,7 +82,7 @@ class ArticleService implements AppConstants
             // Check if the response is successful
             if ($response->successful()) {
                 // @todo : how to call the resource adapter class by it's name
-                $this->adaptData($source, $response->json());
+                return $this->adaptData($source, $response->json());
             }
 
             // Log the error and throw an exception if the response isn't successful
@@ -98,12 +99,11 @@ class ArticleService implements AppConstants
      *
      * @param NewsApiAdapterInterface $adapter
      * @param $response mixed response of the news API endpoint
-     * @return $this
+     * @return NewsDto
      */
-    private function adaptData(NewsApiAdapterInterface $adapter, mixed $response): static
+    private function adaptData(NewsApiAdapterInterface $adapter, mixed $response)
     {
-        $newsDto = $adapter->sync($response);
-        $this->save($newsDto);
+        return $adapter->sync($response);
     }
 
 }
