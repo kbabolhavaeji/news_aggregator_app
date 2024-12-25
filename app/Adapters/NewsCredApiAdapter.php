@@ -10,9 +10,8 @@ use App\Dto\NewsDto;
  */
 class NewsCredApiAdapter implements NewsApiAdapterInterface
 {
-
-    public function fetchNews(NewsDto $newsDto): NewsDto
+    public function sync($data): NewsDto
     {
-        // TODO: Implement fetchNews() method.
+        // TODO: Implement sync() method.
     }
 }
