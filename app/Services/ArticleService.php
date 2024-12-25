@@ -55,9 +55,13 @@ class ArticleService implements AppConstants
         return $query->paginate(10);
     }
 
-    public function save(NewsDto $newsDto)
+    /**
+     * @param NewsDto $newsDto
+     * @return void
+     */
+    public function save(NewsDto $newsDto): void
     {
-        //
+        Article::save($newsDto->toArray());
     }
 
     /**

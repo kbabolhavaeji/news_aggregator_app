@@ -177,4 +177,14 @@ class NewsDto
     {
         $this->published_at = $published_at;
     }
+
+    /**
+     * return class properties as an array
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return get_object_vars($this);
+    }
 }
