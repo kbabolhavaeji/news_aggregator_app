@@ -10,9 +10,7 @@ class ArticleController extends Controller
 
     private ?ArticleService $articleService;
 
-    public function __construct(
-        ArticleService $articleService
-    )
+    public function __construct(ArticleService $articleService)
     {
         $this->articleService = $articleService;
     }
